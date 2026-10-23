@@ -1,0 +1,46 @@
+description = '仅依赖 Meridian 框架的纯 Java 真元变体内容与查询库。'
+
+dependencies {
+    api project(':shared')
+    api 'local.meridian:server'
+    testImplementation 'junit:junit:4.13.2'
+}
+test { useJUnit() }
+
+// 导出器和演示使用独立源码集，避免进入公共运行库。
+sourceSets {
+    tooling {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+    demo {
+        compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+        runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+    }
+}
+
+def contentDirectory = layout.buildDirectory.dir('generated/qi-variants-content')
+tasks.register('exportQiVariantsBundle', JavaExec) {
+    group = 'build'
+    dependsOn tasks.named('toolingClasses')
+    classpath = sourceSets.tooling.runtimeClasspath
+    mainClass = 'dev.kizuna.meridian.qivariants.tooling.ExportQiVariantsBundle'
+    args contentDirectory.get().asFile.absolutePath
+    inputs.files(sourceSets.main.output, sourceSets.tooling.output, configurations.runtimeClasspath)
+    outputs.dir(contentDirectory)
+}
+tasks.named('jar') {
+    dependsOn tasks.named('exportQiVariantsBundle')
+    from(contentDirectory)
+}
+tasks.named('test') {
+    dependsOn tasks.named('jar'), project(':shared').tasks.named('jar')
+    systemProperty 'qiVariants.serverJar', tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+    systemProperty 'qiVariants.sharedJar', project(':shared').tasks.named('jar').get().archiveFile.get().asFile.absolutePath
+}
+tasks.register('demo', JavaExec) {
+    group = 'application'
+    dependsOn tasks.named('demoClasses')
+    classpath = sourceSets.demo.runtimeClasspath
+    mainClass = 'dev.kizuna.meridian.qivariants.demo.QiVariantsDemo'
+}

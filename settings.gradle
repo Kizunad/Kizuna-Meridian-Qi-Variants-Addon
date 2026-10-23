@@ -1,0 +1,18 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+rootProject.name = 'kizuna-meridian-qi-variants-addon'
+include 'shared', 'server'
+
+// 复用独立框架仓库，不复制框架协议或生成类。
+includeBuild(providers.gradleProperty('meridianFrameworkDir')
+        .getOrElse('../Kizuna-Meridian-Mod-Framework')) {
+    dependencySubstitution {
+        substitute module('local.meridian:client') using project(':client')
+        substitute module('local.meridian:server') using project(':server')
+    }
+}

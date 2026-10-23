@@ -1,0 +1,25 @@
+apply plugin: 'com.google.protobuf'
+description = '真元变体合成定义与展示元数据的跨端 Protobuf 契约。'
+
+dependencies {
+    api 'com.google.protobuf:protobuf-java:4.36.2'
+    // 只导入框架协议，不把客户端实现带进服务端运行路径；宿主提供对应端的框架库。
+    compileOnlyApi 'local.meridian:client'
+}
+
+def descriptor = layout.buildDirectory.file('descriptors/qi-variants-v1.desc')
+protobuf {
+    protoc { artifact = 'com.google.protobuf:protoc:4.36.2' }
+    generateProtoTasks {
+        ofSourceSet('main').configureEach { task ->
+            task.generateDescriptorSet = true
+            task.descriptorSetOptions.path = descriptor.get().asFile.path
+            task.descriptorSetOptions.includeImports = true
+            task.descriptorSetOptions.includeSourceInfo = true
+        }
+    }
+}
+tasks.named('processResources') {
+    dependsOn tasks.named('generateProto')
+    from(descriptor) { into 'META-INF/kizuna_meridian/protocol' }
+}

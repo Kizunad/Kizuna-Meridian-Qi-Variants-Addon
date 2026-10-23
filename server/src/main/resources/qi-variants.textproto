@@ -1,0 +1,28 @@
+# 正式内容的唯一编辑入口；颜色为占位展示值，不定义战斗效果。
+schema_version: 1
+attributes {
+  id: "qi_variants:withering"
+  display_name: "枯"
+  color_rgb: 0x8D7C3C
+}
+attributes {
+  id: "qi_variants:wither"
+  display_name: "凋零"
+  color_rgb: 0x4A3A57
+}
+recipes {
+  id: "qi_variants:withering_from_metal_and_wood"
+  version: 1
+  output_attribute_id: "qi_variants:withering"
+  inputs { attribute_id: "meridian:metal" ratio: 1 }
+  inputs { attribute_id: "meridian:wood" ratio: 1 }
+  loss_ratio: 0.35
+}
+recipes {
+  id: "qi_variants:wither_from_withering_and_fire"
+  version: 1
+  output_attribute_id: "qi_variants:wither"
+  inputs { attribute_id: "qi_variants:withering" ratio: 1 }
+  inputs { attribute_id: "meridian:fire" ratio: 1 }
+  loss_ratio: 0.45
+}

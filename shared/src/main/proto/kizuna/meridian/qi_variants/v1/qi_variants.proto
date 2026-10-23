@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package kizuna.meridian.qi_variants.v1;
+
+import "kizuna/meridian/v1/body.proto";
+
+option java_package = "dev.kizuna.meridian.qivariants.protocol.pb";
+option java_outer_classname = "QiVariantsMessages";
+
+// 可信内容目录；不包含真元账户、器官选择或战斗效果。五行根由框架持有。
+message VariantCatalog {
+  int32 schema_version = 1; // 当前为 1；attributes 可为空。
+  repeated VariantAttribute attributes = 2;
+  repeated SynthesisRecipe recipes = 3;
+}
+
+message VariantAttribute {
+  string id = 1; // namespace:path，须在框架登记为 QI_ATTRIBUTE。
+  string display_name = 2; // 非空展示文本。
+  optional uint32 color_rgb = 3; // 必填的 24 位 RGB；0 表示黑色。
+}
+
+message SynthesisInput {
+  string attribute_id = 1; // 框架五行或同目录变体；不接受 meridian:none。
+  double ratio = 2; // 正有限相对比例。
+}
+
+message SynthesisRecipe {
+  string id = 1; // 目录内唯一，独立于调用方生成的器官配方 ID。
+  int32 version = 2; // 正整数内容修订。
+  string output_attribute_id = 3; // 必须是同目录已登记的变体。
+  repeated SynthesisInput inputs = 4; // 至少两种属性，不得重复。
+  optional double loss_ratio = 5; // 必填，[0,1)；差额由框架转为无属性游离真元。
+  optional kizuna.meridian.v1.Realm minimum_realm = 6; // 缺省转换为 WANDERING_QI。
+}
