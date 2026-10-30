@@ -14,6 +14,6 @@ Java 17；`shared/` 提供 Protobuf 与展示元数据，`server/` 是纯 Java �
 python3 "scripts/check_docs.py"
 ```
 
-默认通过 composite build 使用同级 `Kizuna-Meridian-Mod-Framework`；自定义路径使用 `-PmeridianFrameworkDir="/path/to/framework"`。
+默认通过 composite build 使用同级 `Kizuna-Meridian-Mod-Framework`；自定义路径使用 `-Pkizuna.dir.framework="/path/to/framework"`。第三方版本取 Framework 的 `scripts/libs.versions.toml`。
 
 许可：[PolyForm Noncommercial 1.0.0](LICENSE)。

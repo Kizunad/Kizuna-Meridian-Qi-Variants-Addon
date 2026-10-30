@@ -1,6 +1,6 @@
 # 构建与接入
 
-依赖 JDK 17、Gradle Wrapper 8.8、Protobuf 插件 0.9.6 与 protoc / protobuf-java 4.36.2，与 Human 工程一致。运行库只依赖 Meridian Framework、本附属 `shared` 和 Protobuf；JUnit 4.13.2 仅用于测试。
+依赖 JDK 17、Gradle Wrapper 8.14.6、Protobuf 插件 0.9.6 与 protoc / protobuf-java 4.36.2，版本统一取自 Framework 的 `scripts/libs.versions.toml`。运行库只依赖 Meridian Framework、本附属 `shared` 和 Protobuf；JUnit 4.13.2 仅用于测试。
 
 ```bash
 ./gradlew build
@@ -36,7 +36,7 @@ dependencies {
 }
 ```
 
-本库默认使用相邻框架仓库，可通过 `-PmeridianFrameworkDir="/path/to/framework"` 替换。框架尚无独立协议子项目，本库沿用 Human 的框架客户端产物导入协议，并用 `compileOnlyApi` 避免将客户端实现带入服务端运行路径；服务端运行时由框架 server 提供同一套消息。
+本库默认使用相邻框架仓库，位置由 Framework 的装配清单给出，可通过 `-Pkizuna.dir.framework="/path/to/framework"` 替换。框架尚无独立协议子项目，本库沿用 Human 的框架客户端产物导入协议，并用 `compileOnlyApi` 避免将客户端实现带入服务端运行路径；服务端运行时由框架 server 提供同一套消息。
 
 客户端依赖本库 `shared`，同时提供框架 client 作为运行依赖，用于 `Realm` 等导入类型。它不需要本库 server 或框架 server：
 

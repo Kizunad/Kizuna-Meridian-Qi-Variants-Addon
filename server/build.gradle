@@ -3,7 +3,7 @@ description = '仅依赖 Meridian 框架的纯 Java 真元变体内容与查询�
 dependencies {
     api project(':shared')
     api 'local.meridian:server'
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation libs.junit4
 }
 test { useJUnit() }
 

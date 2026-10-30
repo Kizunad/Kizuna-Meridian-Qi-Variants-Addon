@@ -1,6 +1,6 @@
 plugins {
     id 'base'
-    id 'com.google.protobuf' version '0.9.6' apply false
+    alias(libs.plugins.protobuf) apply false
 }
 
 allprojects {
@@ -13,17 +13,17 @@ subprojects {
 
     repositories { mavenCentral() }
     java {
-        toolchain { languageVersion = JavaLanguageVersion.of(17) }
+        toolchain { languageVersion = JavaLanguageVersion.of(libs.versions.java.get()) }
         withSourcesJar()
     }
     base.archivesName = "${rootProject.name}-${project.name}"
     tasks.withType(JavaCompile).configureEach {
-        options.release = 17
+        options.release = libs.versions.java.get().toInteger()
         options.encoding = 'UTF-8'
     }
     tasks.withType(JavaExec).configureEach {
         javaLauncher = javaToolchains.launcherFor {
-            languageVersion = JavaLanguageVersion.of(17)
+            languageVersion = JavaLanguageVersion.of(libs.versions.java.get())
         }
     }
     tasks.withType(Jar).configureEach {
