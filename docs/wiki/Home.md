@@ -13,7 +13,7 @@
 | Vanilla Creature Threatening | 生物内容使用方，引用公共变体身份 |
 | Qi Variants（本仓库） | 属性展示元数据、合成定义、图校验、权重查询和器官配方转换 |
 
-`shared/` 包含独立 Protobuf 和生成消息，复用框架 `Realm`，不复制框架协议类。客户端可以只读取名称和颜色。`server/` 依赖本附属 `shared` 与框架服务端库，不引用 Minecraft 或 Fabric 类型。工程沿用 Human 的 Java 17、Gradle 8.8、composite build、内容导出器和中文注释约定。
+`shared/` 包含独立 Protobuf 和生成消息，复用框架 `Realm`，不复制框架协议类。客户端可以只读取名称和颜色。`server/` 依赖本附属 `shared` 与框架服务端库，不引用 Minecraft 或 Fabric 类型。工程沿用 Human 的 Java 25、Gradle 9.8.0、composite build、内容导出器和中文注释约定。
 
 本库不规定哪个器官能合成、何时加工或属性产生什么战斗效果。转换工具仅生成可信配方定义，由使用方发布和调用；加工执行、身体及环境库存、世界读取、网络分发仍由框架和宿主负责。自然合成、退化和合成 UI 不在本版范围。
 

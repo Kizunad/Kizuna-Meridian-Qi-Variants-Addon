@@ -4,7 +4,7 @@
 
 正式内容只有枯与凋零，统一维护在 [qi-variants.textproto](server/src/main/resources/qi-variants.textproto)。金与木合成一阶枯，枯与火合成二阶凋零；损耗遵循框架规则，作为无属性游离真元释放到环境。
 
-Java 17；`shared/` 提供 Protobuf 与展示元数据，`server/` 是纯 Java 库。仅依赖 Meridian Framework，实际加工、库存及游戏接线由宿主负责。
+Java 25；`shared/` 提供 Protobuf 与展示元数据，`server/` 是纯 Java 库。仅依赖 Meridian Framework，实际加工、库存及游戏接线由宿主负责。
 
 [职责与系列分工](docs/wiki/Home.md) · [合成与权重规则](docs/wiki/Derivation.md) · [构建与接入](docs/wiki/Integration.md)
 

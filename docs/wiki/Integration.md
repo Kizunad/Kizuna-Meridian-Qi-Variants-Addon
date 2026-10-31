@@ -1,6 +1,6 @@
 # 构建与接入
 
-依赖 JDK 17、Gradle Wrapper 8.14.6、Protobuf 插件 0.9.6 与 protoc / protobuf-java 4.36.2，版本统一取自 Framework 的 `scripts/libs.versions.toml`。运行库只依赖 Meridian Framework、本附属 `shared` 和 Protobuf；JUnit 4.13.2 仅用于测试。
+依赖 JDK 25、Gradle Wrapper 9.8.0、Protobuf 插件 0.9.6 与 protoc / protobuf-java 4.36.2，版本统一取自 Framework 的 `scripts/libs.versions.toml`。运行库只依赖 Meridian Framework、本附属 `shared` 和 Protobuf；JUnit 4.13.2 仅用于测试。
 
 ```bash
 ./gradlew build
