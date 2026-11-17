@@ -7,6 +7,18 @@
 - 合成图查询提供不可变目录与候选结果，并提供框架器官配方转换工具；具体器官选择、加工执行、战斗效果、世界读取、网络及库存写入属于使用方或宿主。
 - 损耗遵循框架现有规则：转为无属性游离真元释放；转换工具不改变框架损耗或实际原料匹配语义。
 - 简体中文沟通、文档和函数内注释，公开标识符使用英文；新增方法和构造器包含中文意图注释。
-- 契约变化同步更新 `docs/wiki/`；README 作为入口。交付前运行 `./gradlew build`、`./gradlew demo` 和 `python3 "scripts/check_docs.py"`。
+- 契约变化同步更新 `docs/wiki/`；README 作为入口。交付前运行 `python3 "scripts/check_docs.py"`。
 - 使用 patch/Edit 修改文件，命令路径用双引号。保留用户修改；提交、推送及远端建仓分别按用户授权执行。
 - 原创部分采用 PolyForm Noncommercial 1.0.0，保留第三方许可。公共库的构建成功不等于已完成游戏宿主接线。
+
+## 构建和测试
+
+构建、测试一律走工作区的 `kz`（`~/Code/Kizuna-remote-session/scripts/kz`），不直接运行 `./gradlew`。细则以 `~/Code/Kizuna-remote-session/handoff/codex-worker-rules.md` 为准，动手前先读。
+
+- 单测、构建和服务端 GameTest：`kz test ~/Code/<本仓的 worktree>`
+- 要带上别的仓的 worktree 一起测：每个加一次 `--with ~/Code/<那个仓的 worktree>`
+- 客户端测试：`kz client ~/Code/<本仓的 worktree>` 列出有哪些项，`kz client ~/Code/<本仓的 worktree> <项>` 跑其中一项
+- 要自己写 Gradle 参数时：`kz gradle ~/Code/<本仓的 worktree> -- <参数>`
+- 不提交、不推送；在自己的 worktree（`~/Code/wt-*`）里改，不改主目录。
+
+本仓额外要跑：`kz gradle ~/Code/<本仓的 worktree> -- demo`。
